@@ -17,28 +17,20 @@ return {
 	  dependencies = "nvim-tree/nvim-web-devicons"
 	},
 	{
+		"ojroques/nvim-bufdel",
+		lazy = true,
+		cmd = { "BufDel", "BufDelAll", "BufDelOthers" },
+		init = function()
+		  vim.g.bufdel_no_plugin_maps = true
+		end,
+	},
+	{
 	  "j-hui/fidget.nvim",
 	  lazy = true,
 	  event = "LspAttach",
 	  config = function()
 		require("plugins.ui.fidget").setup()
 	  end,
-	},
-	{
-	  "HiPhish/rainbow-delimiters.nvim",
-	  lazy = true,
-	  config = function()
-		require("plugins.ui.rainbow-delimiters").setup()
-	  end,
-	},
-	{
-	  "lukas-reineke/indent-blankline.nvim",
-	  lazy = true,
-	  event = { "CursorHold", "CursorHoldI" },
-	  config = function()
-		require("plugins.ui.indent-blankline").setup()
-	  end,
-	  dependencies = { "HiPhish/rainbow-delimiters.nvim" },
 	},
 	{
 	  "nvim-lualine/lualine.nvim",
@@ -71,15 +63,6 @@ return {
 	  config = function()
 		require("plugins.ui.smart-splits").setup()
 	  end,
-	},
-	{
-	  "folke/todo-comments.nvim",
-	  lazy = true,
-	  event = { "CursorHold", "CursorHoldI" },
-	  config = function()
-		require("plugins.ui.todo-comments").setup()
-	  end,
-	  dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{
 	  "dstein64/nvim-scrollview",

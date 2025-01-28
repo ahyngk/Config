@@ -108,4 +108,12 @@ return {
             require("plugins.tool.diffview").setup()
         end,
     },
+	{
+		"folke/flash.nvim",
+		lazy = true,
+		event = { "CursorHold", "CursorHoldI" },
+		config = function()
+		  require("plugins.tool.flash")()
+		end,
+	},
   }

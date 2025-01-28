@@ -34,6 +34,7 @@ require("lazy").setup({
   { import = "plugins.lsp" },
   { import = "plugins.tool" },
   { import = "plugins.ui" },
+  { import = "plugins.editor" },
   {
     "navarasu/onedark.nvim",
     lazy = false,

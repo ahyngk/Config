@@ -1,3 +1,6 @@
+local treesitter_compiler = "/usr/bin/gcc-9"
+local treesitter_compiler_cpp = "/usr/bin/g++-9"
+
 return {
     -- LSP 서버 설정
     servers = {
@@ -18,5 +21,17 @@ return {
             max_width = 80,
         },
     },
+
+    treesitter_compiler = treesitter_compiler,
+    treesitter_compiler_cpp = treesitter_compiler_cpp,
+    treesitter_compiler_args = {
+      [treesitter_compiler] = {
+        "-fPIC",
+        "-fcf-protection=none"
+      }
+    },
+    treesitter_install_lang = {
+      "c", "cpp", "lua", "vim", "python", "java", "sql"
+    }
     
 }
