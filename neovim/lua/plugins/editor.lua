@@ -29,7 +29,7 @@ return {
         lazy = true,
         event = "InsertEnter",
         config = function()
-          require("plugins.editor.autoclose")()
+          require("plugins.editor.autoclose").setup()
         end,
     },
 	{
@@ -37,7 +37,7 @@ return {
         lazy = true,
         event = { "BufReadPost", "BufAdd", "BufNewFile" },
         config = function()
-            require("plugins.editor.local-highlight")()
+            require("plugins.editor.local-highlight").setup()
         end,
     },
     {
@@ -45,42 +45,42 @@ return {
         lazy = true,
         event = { "CursorHold", "CursorHoldI" },
         config = function()
-            require("plugins.editor.nvim-highlight-colors")()
+            require("plugins.editor.nvim-highlight-colors").setup()
         end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
         lazy = true,
-        build = function()
-        end,
-        event = "BufReadPre",
+        build = ":TSUpdate",
+        event = { "BufReadPost", "BufNewFile" },
         config = function()
-            require("plugins.editor.treesitter")()
-            if #vim.api.nvim_list_uis() > 0 then
-                vim.api.nvim_command([[TSUpdate]])
-            end
+            require("plugins.editor.treesitter").setup()
+            vim.cmd([[
+                TSBufEnable highlight
+                autocmd BufEnter * TSBufEnable highlight
+            ]])
         end,
         dependencies = {
             "andymass/vim-matchup",
             "mfussenegger/nvim-treehopper",
             "nvim-treesitter/nvim-treesitter-textobjects",
             {
-            "windwp/nvim-ts-autotag",
-            config = function()
-                require("plugins.editor.ts-autotag")()
-            end,
+                "windwp/nvim-ts-autotag",
+                config = function()
+                    require("plugins.editor.ts-autotag").setup()
+                end,
             },
             {
-            "nvim-treesitter/nvim-treesitter-context",
-            config = function()
-                require("plugins.editor.treesitter-context")()
-            end,
+                "nvim-treesitter/nvim-treesitter-context",
+                config = function()
+                    require("plugins.editor.treesitter-context").setup()
+                end,
             },
             {
-            "JoosepAlviste/nvim-ts-context-commentstring",
-            config = function()
-                require("plugins.editor.treesitter-context-commentstring")()
-            end,
+                "JoosepAlviste/nvim-ts-context-commentstring",
+                config = function()
+                    require("plugins.editor.treesitter-context-commentstring").setup()
+                end,
             },
         },
     },

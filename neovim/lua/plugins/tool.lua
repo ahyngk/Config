@@ -113,7 +113,7 @@ return {
 		lazy = true,
 		event = { "CursorHold", "CursorHoldI" },
 		config = function()
-		  require("plugins.tool.flash")()
+		  require("plugins.tool.flash").setup()
 		end,
 	},
   }

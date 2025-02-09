@@ -7,6 +7,16 @@ M.setup = function()
     }
     
     local config = {
+        ensure_installed = {
+            "stylua",
+            "shellcheck",
+            "shfmt",         -- shell formatter
+            "flake8",        -- python checker
+            "clangd",        -- c lsp
+            "clang-format",  -- c formatter
+            "prettier",      -- javascript formatter
+            "black",         -- python formatter
+        },
         ui = {
             icons = {
                 package_pending = icons.ui.Modified_alt,

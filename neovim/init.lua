@@ -28,6 +28,8 @@ vim.notify = function(msg, level, opts)
   original_notify(msg, level, opts)
 end
 
+require("configs.setup").setup()
+
 -- Load Plugins
 require("lazy").setup({
   { import = "plugins.essential" },
@@ -35,6 +37,8 @@ require("lazy").setup({
   { import = "plugins.tool" },
   { import = "plugins.ui" },
   { import = "plugins.editor" },
+  { import = "plugins.tag" }, -- temporary
+  { import = "configs.keymap" },
   {
     "navarasu/onedark.nvim",
     lazy = false,

@@ -202,8 +202,8 @@ M.setup = function()
 		-- Note: The `scope` field requires treesitter to be set up
 		scope = {
 			enabled = true,
-			highlight = highlight,
-			char = "┃",
+			highlight = { "RainbowBlue" },
+			char = "│",
 			show_start = false,
 			show_end = false,
 			injected_languages = true,

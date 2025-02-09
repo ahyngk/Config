@@ -59,7 +59,7 @@ M.setup = vim.schedule_wrap(function()
 		}
 	  },
 	}
-    require("utils.setup").load_plugin("treesitter", config)
+    require("utils.setup").load_plugin("nvim-treesitter", config)
 end
 )
 return M
