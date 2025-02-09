@@ -56,7 +56,7 @@ config.visual_bell = {
 }
 
 -- Color Scheme
-config.color_scheme = 'Chalk (base16)'
+config.color_scheme = 'OneDark (base16)'
 
 -- Keybindings
 config.keys = {
