@@ -1,63 +1,19 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+-- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
+-- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
+local lazypath = vim.env.LAZY or vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
+  -- stylua: ignore
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 
--- leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
-local original_notify = vim.notify
-
-vim.notify = function(msg, level, opts)
-  if msg:match("Invalid plugin spec") then
-    return
-  end
-  original_notify(msg, level, opts)
+-- validate that lazy is available
+if not pcall(require, "lazy") then
+  -- stylua: ignore
+  vim.api.nvim_echo({ { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } }, true, {})
+  vim.fn.getchar()
+  vim.cmd.quit()
 end
 
-require("configs.setup").setup()
-
--- Load Plugins
-require("lazy").setup({
-  { import = "plugins.essential" },
-  { import = "plugins.lsp" },
-  { import = "plugins.tool" },
-  { import = "plugins.ui" },
-  { import = "plugins.editor" },
-  { import = "plugins.tag" }, -- temporary
-  { import = "configs.keymap" },
-  {
-    "navarasu/onedark.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('onedark').setup({
-        style = 'warmer',
-      })
-      require('onedark').load()
-    end
-  },
-}, {
-  install = {
-    colorscheme = { "onedark" },
-  },
-  checker = {
-    enabled = true
-  },
-  spec = {
-    strict = false
-  }
-})
+require "lazy_setup"
+require "polish"
